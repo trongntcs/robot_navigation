@@ -42,7 +42,7 @@ def parse_cmd(cmd_str: str) -> Tuple[str, ...]:
         action, loc_x, loc_y, direction = re.match(CMD_RE_LIST[0], cmd_str).groups()
         return (action, int(loc_x), int(loc_y), direction)
 
-    elif re.match(CMD_RE_LIST[1], cmd_str) is not None:
+    else:
         action = re.match(CMD_RE_LIST[1], cmd_str).group(1)
         return (action, )
     
@@ -51,3 +51,4 @@ def verify_first_action(cmd_str: str) -> bool:
     Check if first command is valid
     """
     return re.match(f'{Action.PLACE}\s+0\s+0\s+{Direction.NORTH}', cmd_str) != None
+

@@ -1,0 +1,5 @@
+BOARD:
+    SIZE_X: 100
+    SIZE_Y: 200
+
+INPUT: invalid_input.txt

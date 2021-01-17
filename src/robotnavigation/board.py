@@ -1,39 +1,59 @@
 """
 Main function for playing robot
 """
+import pdb
 import os
 import sys
-import yaml
-from typing import Dict, Any
+from typing import Dict, Any, Union
 
-from robotnavigation.entity import Entity
-from robotnavigation.command import parse_cmd, verify_first_action
-
-CONFIG_FILE = './user_config.yml'
+from .entity import Entity
+from .command import parse_cmd, verify_first_action
+from .utils import load_env, load_env_from_arg
 
 class Board:
-    def __init__(self) -> None:
-        # read env
-        env = self.load_env()
+    def __init__(self, **kwargs) -> None:
         
-        # board size
-        self.X = env['BOARD']['SIZE_X'] - 1
-        self.Y = env['BOARD']['SIZE_Y'] - 1
-        
-        # init robot
+        # load board via config file
+        self.X = kwargs.pop('size_x', 100)
+        self.Y = kwargs.pop('size_y', 100)
+        self.input_file = kwargs.pop('input_file', 100)
+        # init agent
         self.agent = Entity(self)
-        
-        # get inputs
-        self.input_file = env['INPUT']
+            
+    @classmethod
+    def from_config(cls, input_env: Union[str, Dict[str, Any]]) -> "Board":
+        if isinstance(input_env, str):
+            # load from file
+            env = load_env(input_env)
+            if env is None:
+                raise AssertionError('Config file is invalid')
+                
+            x = env['BOARD']['SIZE_X'] - 1
+            y = env['BOARD']['SIZE_Y'] - 1
+            input_file = env['INPUT']
 
+        else:
+            # load from args
+            env = load_env_from_arg(**input_env)
+            if env is None:
+                raise AssertionError('Some errors found in arguments')
+                
+            x, y, input_file = (env if env is not None else (None, None, None))
+            x = x - 1
+            y = y - 1
         
-    def load_env(self) -> Dict[str, Any]:
-        """
-        Load environment file for board setup
-        """
-        with open(CONFIG_FILE) as file:
-            env = yaml.full_load(file)
-        return env
+        cfg_dict = {
+            'size_x': x,
+            'size_y': y,
+            'input_file': input_file
+        }
+        return cls(**cfg_dict)
+    
+    def __str__(self) -> str:
+        _info = f'BOARD-INFO: \n- SIZE: ({self.X}, {self.Y})\n- FILE: {self.input_file}\n'
+        _info += f'AGENT-INFO: \n{str(self.agent)}\n'
+        
+        return _info
     
     def play(self) -> None:
         """
@@ -58,6 +78,3 @@ class Board:
                     sys.stdout.write(feed + '\n') 
                     
                     
-if __name__ == '__main__':
-    game = Board()
-    game.play()

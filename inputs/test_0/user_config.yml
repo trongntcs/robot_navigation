@@ -1,0 +1,5 @@
+BOARD:
+    SIZE_X: 300
+    SIZE_Y: 200
+
+INPUT: input_0.txt

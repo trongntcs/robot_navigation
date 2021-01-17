@@ -1,4 +1,3 @@
-
 import os
 import sys
 
@@ -14,11 +13,14 @@ class Entity:
         # get board info
         self.LIMIT_X = board.X
         self.LIMIT_Y = board.Y
+        
         # default init location
         self.x = 0 # current-x of robot
         self.y = 0 # current-y of robot
         self.direction = Direction.NORTH
-        self.index = 0 # index of direction in GLOBAL
+        
+        # index of direction in GLOBAL
+        self.dir_index = 0 
         
     def _is_valid_location(self, x: int, y: int) -> bool:
         """
@@ -53,7 +55,7 @@ class Entity:
         
         return x, y
     
-    def __str__(self):
+    def __str__(self) -> str:
         printable = [
             f'X: {self.x}',
             f'Y: {self.y}',
@@ -84,15 +86,15 @@ class Entity:
                 self.x = x
                 self.y = y
                 self.direction = direction
-                self.index = Direction.GLOBAL2INDEX[self.direction]
+                self.dir_index = Direction.GLOBAL2INDEX[self.direction]
 
             elif action == Action.LEFT:
-                self.index = (self.index - 1) % len(Direction.GLOBAL)
-                self.direction = Direction.GLOBAL[self.index]
+                self.dir_index = (self.dir_index - 1) % len(Direction.GLOBAL)
+                self.direction = Direction.GLOBAL[self.dir_index]
 
             elif action == Action.RIGHT:
-                self.index = (self.index + 1) % len(Direction.GLOBAL)
-                self.direction = Direction.GLOBAL[self.index]
+                self.dir_index = (self.dir_index + 1) % len(Direction.GLOBAL)
+                self.direction = Direction.GLOBAL[self.dir_index]
 
             elif action == Action.MOVE:
                 self.x, self.y = self._moving()

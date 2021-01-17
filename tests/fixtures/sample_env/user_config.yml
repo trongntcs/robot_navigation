@@ -2,4 +2,4 @@ BOARD:
     SIZE_X: 100
     SIZE_Y: 200
 
-INPUT: ./inputs/input_1.txt
+INPUT: sample_input.txt
