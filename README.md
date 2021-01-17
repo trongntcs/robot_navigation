@@ -50,9 +50,20 @@ The package structure:
 
 ### Inputs
 
-The inputs are placed in "Input" folder, where each subfolder represents for a single testcase including two files:
-- Yaml file for environment config and pointer to test case file url.
-- Test case for robot movement.
+There are two kinds of input:
+
+1. From config folder:
+
+  The inputs are placed in "Input" folder, where each subfolder represents for a single testcase including two files:
+  
+  - Yaml file for environment config and pointer to test case file url.
+  - Test case for robot movement.
+  
+  Please find in *examples/run_robot_cfg.py*
+
+2. From arguments setup:
+
+  Simply enter arguments as Dictionary, please find in *examples/run_robot_arg.py*
 
 ### Code explanation
 
