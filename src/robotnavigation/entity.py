@@ -32,21 +32,21 @@ class Entity:
         
         return True
         
-    def _moving(self) -> Tuple[int,int]:
+    def _moving(self, step=1) -> Tuple[int,int]:
         """
         Moving robot based on its current location and direction
         """
         if self.direction == Direction.NORTH:
             _x = self._x
-            _y = self._y + 1
+            _y = self._y + step
         elif self.direction == Direction.EAST:
-            _x = self._x + 1
+            _x = self._x + step
             _y = self._y
         elif self.direction == Direction.SOUTH:
             _x = self._x
-            _y = self._y - 1
+            _y = self._y - step
         elif self.direction == Direction.WEST:
-            _x = self._x - 1
+            _x = self._x - step
             _y = self._y
             
         if not self._is_valid_location(_x, _y):
