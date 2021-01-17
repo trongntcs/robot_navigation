@@ -9,6 +9,7 @@ Please find in examples folder.
 ### Code package
 
 The package structure:
+```
 .
 ├── LICENSE
 ├── README.md
@@ -41,7 +42,7 @@ The package structure:
     ├── test_agent.py
     ├── test_env.py
     └── test_parser.py
-
+```
 ### Inputs
 
 The inputs are placed in "Input" folder, where each subfolder represents for a single testcase including two files:
@@ -58,5 +59,5 @@ The inputs are placed in "Input" folder, where each subfolder represents for a s
 
 ### Tests
 
-Please find in "Tests" folder with pytest applied.
+Please find in "tests" folder with pytest applied.
 
