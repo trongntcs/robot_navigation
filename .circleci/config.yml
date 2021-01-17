@@ -17,6 +17,7 @@ jobs:
             pip install -e .
       - run:                    
            command: |
+            conda activate env-robot
             mkdir reports
             python -m pytest ./tests/ | tee reports/test_outputs.txt
       - save_cache:
