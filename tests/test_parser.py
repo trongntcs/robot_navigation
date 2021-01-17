@@ -5,7 +5,9 @@ import re
 import unittest
 
 from robotnavigation.command import parse_cmd, is_valid_cmd
-from robotnavigation.utils import Direction, Action
+from robotnavigation.action import Action
+from robotnavigation.direction import Direction
+
 
 class TestParser(unittest.TestCase):
     

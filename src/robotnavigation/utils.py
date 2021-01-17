@@ -1,32 +1,12 @@
 import os
 import re
+import logging
 import yaml
+
 from typing import List, Dict, Any, Tuple
 
 USER_CONFIG_FILE = 'user_config.yml'
-
-class Action:
-    """
-    Define all action-types
-    """
-    PLACE = "PLACE"
-    MOVE = "MOVE"
-    LEFT = "LEFT"
-    RIGHT = "RIGHT"
-    REPORT = "REPORT"
-    
-    
-class Direction:
-    """
-    Define all valid directions
-    """
-    NORTH = "NORTH"
-    EAST = "EAST"
-    SOUTH = "SOUTH"
-    WEST = "WEST"
-    GLOBAL = [NORTH, EAST, SOUTH, WEST]
-    GLOBAL2INDEX = dict(zip(GLOBAL, range(len(GLOBAL))))
-    
+        
     
 def is_valid_env(env) -> bool:
     try:       
@@ -63,3 +43,23 @@ def load_env_from_arg(**kwargs) -> Tuple[int, int, str]:
         return None
     
     return (x, y, input_file)
+
+def get_logger(log_path):
+    """Set the logger to log info in terminal and file `log_path`.
+    In general, it is useful to have a logger so that every output to the terminal is saved
+    in a permanent file. Here we save it to `model_dir/train.log`.
+    Example:
+    ```
+    logging.info("Starting training...")
+    ```
+    Args:
+        log_path: (string) where to log
+    """
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    if not logger.handlers:
+        # Logging to a file
+        file_handler = logging.FileHandler(log_path)
+        file_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s: %(message)s'))
+        logger.addHandler(file_handler)

@@ -6,21 +6,21 @@ import re
 import argparse
 from typing import Dict, Tuple, List
 
-from .utils import (
-    Action,
-    Direction
-)
+from .action import Action
+from .direction import Direction
 
 """
 Define all command patterns accepted
 """
-CMD_RE_LIST = [f'^({Action.PLACE})\s+(\d+)\s+(\d+)\s+'\
-                   + f'({Direction.NORTH}'\
-                   + f'|{Direction.EAST}'\
-                   + f'|{Direction.SOUTH}'\
-                   + f'|{Direction.WEST})$',
-               f'^({Action.MOVE}|{Action.LEFT}|{Action.RIGHT}|{Action.REPORT})$'
-              ]
+CMD_RE_LIST = [
+    f'^({Action.PLACE})'
+    + r'\s+(\d+)\s+(\d+)\s+'
+    + f'({Direction.NORTH}'
+    + f'|{Direction.EAST}'
+    + f'|{Direction.SOUTH}'
+    + f'|{Direction.WEST})$',
+    f'^({Action.MOVE}|{Action.LEFT}|{Action.RIGHT}|{Action.REPORT})$'
+]
 
 CMD_RE = '|'.join(CMD_RE_LIST)
 
@@ -50,5 +50,6 @@ def verify_first_action(cmd_str: str) -> bool:
     """
     Check if first command is valid
     """
-    return re.match(f'{Action.PLACE}\s+0\s+0\s+{Direction.NORTH}', cmd_str) != None
+    subre = r'\s+0\s+0\s+'
+    return re.match(f'{Action.PLACE}{subre}{Direction.NORTH}', cmd_str) != None
 

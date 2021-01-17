@@ -3,10 +3,9 @@ import sys
 
 from typing import Tuple, Any
 
-from .utils import (
-    Action,
-    Direction
-)
+from .action import Action
+from .direction import Direction
+
 
 class Entity:
     def __init__(self, board) -> None:
@@ -80,7 +79,7 @@ class Entity:
                 x, y, direction = cmd[1], cmd[2], cmd[3]
                 
                 if not self._is_valid_location(x, y):
-                    return None # simply ignore this action
+                    raise ValueError(f'Location ({x},{y}) is not valid')
                 
                 # assign new location
                 self.x = x
@@ -100,7 +99,7 @@ class Entity:
                 self.x, self.y = self._moving()
             
             else:
-                raise ValueError(f'Action {action} is not valid')
+                raise ValueError(f'Action {action} is not supported')
                 
             return None
                 
