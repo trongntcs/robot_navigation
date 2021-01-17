@@ -13,7 +13,7 @@ jobs:
             conda env create -f environment.yml
             conda init bash
             source ~/.bashrc
-            conda activate robot-env
+            conda activate env-robot
             pip install -e .
       - run:                    
            command: |
