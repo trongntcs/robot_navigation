@@ -1,9 +1,9 @@
-import os
-import re
-import logging
-import yaml
 
-from typing import List, Dict, Any, Tuple
+import os
+import logging
+from typing import Dict, Any, Tuple
+
+import yaml
 
 USER_CONFIG_FILE = 'user_config.yml'
         
@@ -14,7 +14,7 @@ def is_valid_env(env) -> bool:
         assert env['BOARD']['SIZE_Y'] > 0
         assert isinstance(env['INPUT'], str)
         
-    except:
+    except AssertionError:
         return False
     
     return True
@@ -30,19 +30,21 @@ def load_env(env_file) -> Dict[str, Any]:
     return env if is_valid_env(env) else None
 
 def load_env_from_arg(**kwargs) -> Tuple[int, int, str]:
-    
-    x = kwargs.pop('size_x', -1)
-    y = kwargs.pop('size_y', -1)
+    """
+    Load environment from arguments
+    """
+    _x = kwargs.pop('size_x', -1)
+    _y = kwargs.pop('size_y', -1)
     input_file = kwargs.pop('input_file', None)
     try:
-        assert x > 0
-        assert y > 0
+        assert _x > 0
+        assert _y > 0
         assert isinstance(input_file, str)
     
-    except:
+    except AssertionError:
         return None
     
-    return (x, y, input_file)
+    return (_x, _y, input_file)
 
 def get_logger(log_path):
     """Set the logger to log info in terminal and file `log_path`.

@@ -3,8 +3,7 @@ Transform/parse text to command format
 """
 import os
 import re
-import argparse
-from typing import Dict, Tuple, List
+from typing import Tuple
 
 from .action import Action
 from .direction import Direction
@@ -29,7 +28,7 @@ def is_valid_cmd(cmd_str: str) -> bool:
     """
     Check if the command is valid
     """
-    return re.compile(CMD_RE).match(cmd_str) != None
+    return re.compile(CMD_RE).match(cmd_str) is not None
 
 def parse_cmd(cmd_str: str) -> Tuple[str, ...]:
     """
@@ -51,5 +50,5 @@ def verify_first_action(cmd_str: str) -> bool:
     Check if first command is valid
     """
     subre = r'\s+0\s+0\s+'
-    return re.match(f'{Action.PLACE}{subre}{Direction.NORTH}', cmd_str) != None
+    return re.match(f'{Action.PLACE}{subre}{Direction.NORTH}', cmd_str) is not None
 

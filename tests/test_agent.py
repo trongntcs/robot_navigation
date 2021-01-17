@@ -32,8 +32,8 @@ class TestAgent(unittest.TestCase):
         
     def test_boad(self):
         
-        self.assertEqual(self.board.X, 99)
-        self.assertEqual(self.board.Y, 199)
+        self.assertEqual(self.board._X, 99)
+        self.assertEqual(self.board._Y, 199)
         self.assertTrue(os.path.exists(self.board.input_file), 'Input file does not exist')
         
     def test_play(self):
