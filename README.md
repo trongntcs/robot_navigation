@@ -15,7 +15,9 @@ The package structure:
 ├── README.md
 ├── environment.yml
 ├── examples
-│   └── run_robot.py
+│   ├── input.txt
+│   ├── run_robot_arg.py
+│   └── run_robot_cfg.py
 ├── inputs
 │   ├── test_0
 │   │   ├── input_0.txt
@@ -26,8 +28,10 @@ The package structure:
 ├── setup.py
 ├── src
 │   └── robotnavigation
+│       ├── action.py
 │       ├── board.py
 │       ├── command.py
+│       ├── direction.py
 │       ├── entity.py
 │       └── utils.py
 └── tests
@@ -55,8 +59,8 @@ The inputs are placed in "Input" folder, where each subfolder represents for a s
 - Board: set up environment including board size (X, Y) and init robot/agent
 - Entity: for agent/robot class
 - Command: for command processing, parse command from input file
-- Utils: includes some functions for loading environments and definitions for Action [PLACE, MOVE, LEFT, RIGHT, REPORT], Direction[NORTH, SOUTH, EAST, WEST]
-
+- Action, Direction: definitions for Action [PLACE, MOVE, LEFT, RIGHT, REPORT], Direction[NORTH, SOUTH, EAST, WEST]
+- Utils: includes some functions for loading environments
 
 ### Tests
 
