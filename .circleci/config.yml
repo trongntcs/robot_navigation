@@ -17,7 +17,7 @@ jobs:
             pip install -e .
       - run:                    
            command: |
-             mkdir reports
+            mkdir reports
             python -m pytest ./tests/ | tee reports/test_outputs.txt
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "environment.yml" }}
