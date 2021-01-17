@@ -1,0 +1,35 @@
+version: 2 # use CircleCI 2.0
+jobs: 
+  build:
+    working_directory: ~/robot_navigation
+    docker:
+      - image: continuumio/miniconda3
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "environment.yml" }}
+      - run:
+          command: |
+            conda env create -f environment.yml
+            conda init bash
+            source ~/.bashrc
+            conda activate robot-env
+            pip install -e .
+      - run:                    
+           command: |
+             mkdir reports
+            python -m pytest ./tests/ | tee reports/test_outputs.txt
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "environment.yml" }}
+          paths:
+            - "virenv"
+      - store_test_results:
+          path: ~/robot_navigation/reports
+      - store_artifacts:
+          path: ~/robot_navigation/reports
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
